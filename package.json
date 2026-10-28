@@ -1,0 +1,9 @@
+{
+  "name": "palco-dos-mortos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Palco dos Mortos 3D — jogo estático (HTML + three.js)",
+  "scripts": {
+    "dev": "npx serve ."
+  }
+}
