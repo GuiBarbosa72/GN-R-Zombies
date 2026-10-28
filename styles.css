@@ -4,7 +4,7 @@
   --hot: #ff2e63;
   --gold: #ffc83d;
   --acid: #7dff6b;
-  --panel: rgba(14, 10, 22, 0.88);
+  --panel: rgba(14, 10, 22, 0.92);
 }
 
 * {
@@ -34,7 +34,7 @@ canvas {
   font-family: 'Permanent Marker', cursive;
 }
 
-.screen h1, #banner, #combo, #hname, #hpwrap, #hptxt, .card b {
+.screen h1, #banner, #combo, #hname, #hpwrap, #hptxt, .card b, #prompt {
   font-family: 'Share Tech Mono', monospace;
   font-weight: 400;
 }
@@ -44,7 +44,7 @@ canvas {
   inset: 0;
   pointer-events: none;
   padding: calc(env(safe-area-inset-top, 0px) + 12px) 14px 0;
-  display: none;
+  display: block;
   z-index: 10;
 }
 
@@ -90,6 +90,7 @@ canvas {
 #wave {
   margin-top: 8px;
   font-size: 18px;
+  color: var(--acid);
 }
 
 #score {
@@ -109,15 +110,32 @@ canvas {
   position: fixed;
   left: 0;
   right: 0;
-  top: 34%;
+  top: 30%;
   text-align: center;
-  font-size: clamp(38px, 9vw, 84px);
+  font-size: clamp(32px, 7vw, 70px);
   color: var(--gold);
   text-shadow: 3px 3px 0 var(--hot);
   opacity: 0;
   transition: opacity 0.4s;
   pointer-events: none;
   z-index: 15;
+}
+
+#prompt {
+  position: fixed;
+  left: 50%;
+  bottom: 22%;
+  transform: translateX(-50%);
+  background: var(--panel);
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 8px;
+  display: none;
+  z-index: 50;
+  pointer-events: none;
+  box-shadow: 0 0 15px rgba(255, 200, 61, 0.4);
 }
 
 .screen {
@@ -136,8 +154,12 @@ canvas {
   pointer-events: auto;
 }
 
+#wardrobe-modal {
+  display: none;
+}
+
 .screen h1 {
-  font-size: clamp(40px, 10vw, 92px);
+  font-size: clamp(36px, 8vw, 72px);
   margin: 0;
   line-height: 0.95;
   color: var(--ink);
@@ -148,11 +170,6 @@ canvas {
   margin: 0;
   max-width: 440px;
   opacity: 0.85;
-}
-
-.controls-hint {
-  font-size: 13px;
-  opacity: 0.6;
 }
 
 .cards {
@@ -192,13 +209,13 @@ canvas {
 
 .card b {
   display: block;
-  font-size: 22px;
+  font-size: 20px;
   color: var(--gold);
   margin-bottom: 6px;
 }
 
 .card span {
-  font-size: 14px;
+  font-size: 13px;
   opacity: 0.85;
 }
 
@@ -235,19 +252,35 @@ body.play, body.play canvas {
   position: fixed;
   right: max(18px, env(safe-area-inset-right, 0px));
   bottom: calc(env(safe-area-inset-bottom, 0px) + 28px);
-  width: 104px;
-  height: 104px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   border: 3px solid var(--ink);
   background: var(--hot);
   color: var(--ink);
-  font-size: 20px;
+  font-size: 18px;
   display: none;
   cursor: pointer;
   z-index: 20;
 }
 
-#atk:active {
+#use-btn {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right, 0px));
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 130px);
+  width: 90px;
+  height: 60px;
+  border-radius: 12px;
+  border: 3px solid var(--gold);
+  background: #241636;
+  color: var(--gold);
+  font-size: 14px;
+  display: none;
+  cursor: pointer;
+  z-index: 20;
+}
+
+#atk:active, #use-btn:active {
   background: var(--gold);
   color: #000;
 }
