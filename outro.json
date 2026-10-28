@@ -1,9 +1,1 @@
-{
-  "name": "palco-dos-mortos-3d",
-  "version": "1.0.0",
-  "description": "Jogo 3D de ação e zumbis no palco feito com Three.js",
-  "main": "index.html",
-  "scripts": {
-    "start": "npx serve ."
-  }
-}
+
