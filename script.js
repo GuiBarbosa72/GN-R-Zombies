@@ -483,7 +483,6 @@ function makeHero(k) {
     sp.rotation.z = 0.12;
     h.add(sp);
     u.arms[1].rotation.x = -0.9;
-    // CORREÇÃO CRÍTICA AQUI: Usando .add() em vez de .attach()
     u.arms[1].userData.e.add(gt);
   }
   h.rotation.order = 'YXZ';
@@ -641,7 +640,7 @@ function start(k) {
   }
 }
 
-// BIND DE CLIQUE SEGURO PARA OS BOTÕES DE SELEÇÃO
+// BIND DE CLIQUE DIRETO NOS CARD BUTTONS
 document.addEventListener('click', (e) => {
   const cardBtn = e.target.closest('[data-h]');
   if (cardBtn) {
