@@ -89,15 +89,15 @@ scene.add(dressingRoomGroup);
 scene.add(stageGroup);
 
 // --- CAMARIM ---
-const drFloor = part(BX(12, 0.2, 12), M(0x3a2218), 0, -0.1, 0); // Chão de madeira
+const drFloor = part(BX(12, 0.2, 12), M(0x3a2218), 0, -0.1, 0);
 dressingRoomGroup.add(drFloor);
 
 // Paredes do Camarim
 const drWallMat = M(0x1f162b);
-dressingRoomGroup.add(part(BX(12, 5, 0.2), drWallMat, 0, 2.5, -6)); // Fundo
-dressingRoomGroup.add(part(BX(12, 5, 0.2), drWallMat, 0, 2.5, 6));  // Frente
-dressingRoomGroup.add(part(BX(0.2, 5, 12), drWallMat, -6, 2.5, 0)); // Esquerda
-dressingRoomGroup.add(part(BX(0.2, 5, 8), drWallMat, 6, 2.5, -2));   // Direita (vão da porta)
+dressingRoomGroup.add(part(BX(12, 5, 0.2), drWallMat, 0, 2.5, -6));
+dressingRoomGroup.add(part(BX(12, 5, 0.2), drWallMat, 0, 2.5, 6));
+dressingRoomGroup.add(part(BX(0.2, 5, 12), drWallMat, -6, 2.5, 0));
+dressingRoomGroup.add(part(BX(0.2, 5, 8), drWallMat, 6, 2.5, -2));
 
 // Armário de Roupas
 const wardrobe = new THREE.Group();
@@ -343,7 +343,7 @@ function setSlash(m, p) {
 // ESTADO DO JOGO E MUDANÇA DE SESSÃO
 // -------------------------------------------------------------
 let hero, hk = 'casual', slash, zs = [], ds = [], ps = [];
-let currentLocation = 'dressing_room'; // 'dressing_room' ou 'stage'
+let currentLocation = 'dressing_room';
 let score = 0, wave = 0, toSpawn = 0, spT = 0, combo = 0, comboT = 0, shake = 0, nextWave = 0, hp = 100, inv = 0;
 let yaw = 0, atkCd = 0, held = false, pitch = -0.2, cyaw = 0, cpit = -0.2, hFace = 0, spinOff = 0, paused = false, noLock = false, cmb = 0, cmbT = 0, A = null;
 const keys = {}, joy = { x: 0, y: 0, id: null, ox: 0, oy: 0 }, look = { id: null, x: 0, y: 0 };
@@ -386,8 +386,8 @@ function initGame() {
 function enterStage() {
   currentLocation = 'stage';
   hero.position.set(0, 0, 0);
-  stageGroup.position.set(0, 0, 0); // Ativa o palco na origem da cena
-  dressingRoomGroup.position.set(0, -100, 0); // Esconde o camarim
+  stageGroup.position.set(0, 0, 0);
+  dressingRoomGroup.position.set(0, -100, 0);
   wave = 0; score = 0; hp = 100;
   startWave();
 }
@@ -419,11 +419,9 @@ $('again').onclick = () => {
 function handleInteraction() {
   if (currentLocation === 'dressing_room') {
     const p = hero.position;
-    // Perto do armário
     if (Math.hypot(p.x - (-4.5), p.z - (-4.5)) < 2.2) {
       $('wardrobe-modal').style.display = 'flex';
     }
-    // Perto da porta do palco
     else if (Math.hypot(p.x - 5.5, p.z - 3.5) < 2.0) {
       if (hk === 'casual') {
         const b = $('banner'); b.textContent = 'Vista-se primeiro no armário!'; b.style.opacity = 1;
@@ -493,7 +491,6 @@ function loop(now) {
     hero.position.x += (fvX * f + rvX * r) * c.sp * dt;
     hero.position.z += (fvZ * f + rvZ * r) * c.sp * dt;
 
-    // Limites de Colisão
     if (currentLocation === 'dressing_room') {
       hero.position.x = Math.max(-5.2, Math.min(5.2, hero.position.x));
       hero.position.z = Math.max(-5.2, Math.min(5.2, hero.position.z));
@@ -525,7 +522,6 @@ function loop(now) {
     hFace += da * Math.min(1, dt * 18);
     hero.rotation.y = hFace;
 
-    // Ataque e Inimigos no Palco
     if (currentLocation === 'stage') {
       if (toSpawn > 0) {
         spT -= dt;
@@ -554,7 +550,6 @@ function loop(now) {
       $('score').textContent = score;
     }
 
-    // Posição da Câmera
     const dist = 4.8;
     cam.position.set(
       hero.position.x - Math.sin(yaw) * Math.cos(pitch) * dist,
