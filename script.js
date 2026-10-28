@@ -95,7 +95,7 @@ const beams = [];
   beams.push({ sp, cone, x, z, i });
 });
 
-// Modelos e Utilitários
+// Modelos
 const GC = {}, TX = {};
 const gk = (k, f) => GC[k] || (GC[k] = f());
 
@@ -593,9 +593,8 @@ function lockMouse() {
   if (noLock || touched) return;
   try {
     const canvasEl = $('c');
-    const promise = canvasEl.requestPointerLock?.();
-    if (promise && promise.catch) {
-      promise.catch(() => { noLock = true; });
+    if (canvasEl.requestPointerLock) {
+      canvasEl.requestPointerLock();
     }
   } catch (e) {
     noLock = true;
@@ -624,9 +623,11 @@ function start(k) {
 
   score = 0; wave = 0; hp = 100; combo = 0; inv = 0; nextWave = 0; yaw = 0; atkCd = 0; atkT = 0;
   pitch = cpit = -0.2; cyaw = 0; hFace = 0; spinOff = 0; cmb = 0; cmbT = 0; A = null; paused = false;
+  
   $('pause').style.display = 'none';
   $('hname').textContent = c.n;
-  $('start').style.display = $('over').style.display = 'none';
+  $('start').style.display = 'none';
+  $('over').style.display = 'none';
   $('hud').style.display = 'block';
   $('atk').style.display = 'block';
 
@@ -639,14 +640,11 @@ function start(k) {
   }
 }
 
-// BIND DOS BOTÕES DE SELEÇÃO DE PERSONAGEM (SUPORTE COMPLETO MOUSE + TOUCH)
+// INICIALIZAÇÃO DE EVENTOS NOS BOTÕES
 document.querySelectorAll('[data-h]').forEach(b => {
-  const handler = (e) => {
-    e.preventDefault();
+  b.onclick = (e) => {
     start(b.dataset.h);
   };
-  b.addEventListener('click', handler);
-  b.addEventListener('touchstart', handler, { passive: false });
 });
 
 $('again').onclick = () => start(hk);
