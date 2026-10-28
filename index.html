@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Palco dos Mortos 3D</title>
+  <meta name="description" content="Palco dos Mortos 3D: sobreviva às ondas de zumbis no show, com combos de 3 golpes.">
+  <meta name="theme-color" content="#08060c">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%B8%3C/text%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <canvas id="c"></canvas>
+
+  <div id="hud">
+    <div class="row">
+      <div>
+        <div id="hname" class="marker"></div>
+        <div id="hpwrap">
+          <div id="hp"></div>
+          <div id="hptxt">100 / 100</div>
+        </div>
+        <div id="wave">Onda 1</div>
+      </div>
+      <div>
+        <div id="score" class="marker">0</div>
+        <div id="combo" class="marker"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="banner" class="marker"></div>
+  
+  <div id="ring">
+    <div id="knob"></div>
+  </div>
+  
+  <button id="atk" class="marker">Atacar</button>
+
+  <div id="start" class="screen">
+    <h1 class="marker">Palco<br>dos Mortos</h1>
+    <p>Os zumbis invadiram o show. Escolha seu herói e segure a plateia no corpo a corpo.</p>
+    <div class="cards">
+      <button class="card" data-h="voc">
+        <b>O Vocalista</b>
+        <span>Bandana e tranças ruivas. Golpe de microfone forte e largo, mais lento.</span>
+      </button>
+      <button class="card" data-h="gui">
+        <b>O Guitarrista</b>
+        <span>Cartola e cachos. Golpes rápidos de guitarra, alcance menor.</span>
+      </button>
+    </div>
+    <p class="controls-hint">PC: WASD move, mouse gira a câmera, clique/Espaço ataca. Celular: joystick esquerdo move, arraste à direita para olhar.</p>
+  </div>
+
+  <div id="pause" class="screen">
+    <h1 class="marker">Pausado</h1>
+    <p>Clique para continuar.</p>
+    <button class="card" id="resume"><b>Continuar</b></button>
+  </div>
+
+  <div id="over" class="screen">
+    <h1 class="marker">Fim do show</h1>
+    <p id="final"></p>
+    <button class="card" id="again"><b>Tocar de novo</b></button>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
