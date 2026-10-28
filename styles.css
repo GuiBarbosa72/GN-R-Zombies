@@ -9,7 +9,6 @@
 
 * {
   box-sizing: border-box;
-  touch-action: none;
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
@@ -28,6 +27,7 @@ canvas {
   display: block;
   width: 100vw;
   height: 100vh;
+  touch-action: none;
 }
 
 .marker {
@@ -45,6 +45,7 @@ canvas {
   pointer-events: none;
   padding: calc(env(safe-area-inset-top, 0px) + 12px) 14px 0;
   display: none;
+  z-index: 10;
 }
 
 #hud .row {
@@ -116,6 +117,7 @@ canvas {
   opacity: 0;
   transition: opacity 0.4s;
   pointer-events: none;
+  z-index: 15;
 }
 
 .screen {
@@ -130,6 +132,8 @@ canvas {
   text-align: center;
   background: radial-gradient(circle at 50% 30%, rgba(255, 46, 99, 0.28), var(--bg) 70%);
   cursor: default;
+  z-index: 100;
+  pointer-events: auto;
 }
 
 .screen h1 {
@@ -156,6 +160,7 @@ canvas {
   gap: 14px;
   flex-wrap: wrap;
   justify-content: center;
+  pointer-events: auto;
 }
 
 .card {
@@ -167,6 +172,8 @@ canvas {
   font: inherit;
   cursor: pointer;
   transform: rotate(-1.5deg);
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .card:nth-child(2) {
@@ -183,11 +190,13 @@ canvas {
   font-size: 22px;
   color: var(--gold);
   margin-bottom: 6px;
+  pointer-events: none;
 }
 
 .card span {
   font-size: 14px;
   opacity: 0.85;
+  pointer-events: none;
 }
 
 #over, #pause {
@@ -206,6 +215,7 @@ body.play, body.play canvas {
   border-radius: 50%;
   display: none;
   pointer-events: none;
+  z-index: 20;
 }
 
 #knob {
@@ -231,6 +241,8 @@ body.play, body.play canvas {
   font-size: 20px;
   display: none;
   cursor: pointer;
+  z-index: 20;
+  touch-action: manipulation;
 }
 
 #atk:active {
