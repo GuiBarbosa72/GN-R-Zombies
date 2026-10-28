@@ -483,7 +483,8 @@ function makeHero(k) {
     sp.rotation.z = 0.12;
     h.add(sp);
     u.arms[1].rotation.x = -0.9;
-    u.arms[1].userData.e.attach(gt);
+    // CORREÇÃO CRÍTICA AQUI: Usando .add() em vez de .attach()
+    u.arms[1].userData.e.add(gt);
   }
   h.rotation.order = 'YXZ';
   return h;
@@ -593,7 +594,7 @@ function lockMouse() {
   if (noLock || touched) return;
   try {
     const canvasEl = $('c');
-    if (canvasEl.requestPointerLock) {
+    if (canvasEl && canvasEl.requestPointerLock) {
       canvasEl.requestPointerLock();
     }
   } catch (e) {
@@ -640,11 +641,13 @@ function start(k) {
   }
 }
 
-// INICIALIZAÇÃO DE EVENTOS NOS BOTÕES
-document.querySelectorAll('[data-h]').forEach(b => {
-  b.onclick = (e) => {
-    start(b.dataset.h);
-  };
+// BIND DE CLIQUE SEGURO PARA OS BOTÕES DE SELEÇÃO
+document.addEventListener('click', (e) => {
+  const cardBtn = e.target.closest('[data-h]');
+  if (cardBtn) {
+    const heroKey = cardBtn.getAttribute('data-h');
+    start(heroKey);
+  }
 });
 
 $('again').onclick = () => start(hk);
