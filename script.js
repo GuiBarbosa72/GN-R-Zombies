@@ -589,6 +589,19 @@ function startWave() {
   banner('Onda ' + wave);
 }
 
+function lockMouse() {
+  if (noLock || touched) return;
+  try {
+    const canvasEl = $('c');
+    const promise = canvasEl.requestPointerLock?.();
+    if (promise && promise.catch) {
+      promise.catch(() => { noLock = true; });
+    }
+  } catch (e) {
+    noLock = true;
+  }
+}
+
 function start(k) {
   hk = k;
   if (hero) scene.remove(hero);
@@ -620,10 +633,22 @@ function start(k) {
   startWave();
   st = 'play';
   document.body.classList.add('play');
-  if (!touched) lockMouse();
+  
+  if (!touched) {
+    lockMouse();
+  }
 }
 
-document.querySelectorAll('[data-h]').forEach(b => b.onclick = () => start(b.dataset.h));
+// BIND DOS BOTÕES DE SELEÇÃO DE PERSONAGEM (SUPORTE COMPLETO MOUSE + TOUCH)
+document.querySelectorAll('[data-h]').forEach(b => {
+  const handler = (e) => {
+    e.preventDefault();
+    start(b.dataset.h);
+  };
+  b.addEventListener('click', handler);
+  b.addEventListener('touchstart', handler, { passive: false });
+});
+
 $('again').onclick = () => start(hk);
 
 addEventListener('keydown', e => {
@@ -650,16 +675,6 @@ function setPause(v) {
   if (v) held = false;
   $('pause').style.display = v ? 'flex' : 'none';
   document.body.classList.toggle('play', !v);
-}
-
-function lockMouse() {
-  if (noLock || touched) return;
-  try {
-    const r = $('c').requestPointerLock();
-    if (r && r.catch) r.catch(() => { noLock = true; });
-  } catch (e) {
-    noLock = true;
-  }
 }
 
 document.addEventListener('pointerlockchange', () => {
